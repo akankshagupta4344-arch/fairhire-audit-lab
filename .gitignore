@@ -61,3 +61,8 @@ adult.data
 *.zip
 resume_uploads/
 private/
+# PDFs kept locally but not published
+/25BAI0033_VL2026270101739_CP.pdf
+/CASESTUDYPDF.pdf
+/EDA_Project_Report.pdf
+/PROJECT PDF.pdf
