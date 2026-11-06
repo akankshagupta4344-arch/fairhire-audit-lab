@@ -1,0 +1,63 @@
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*api_key*
+*apikey*
+
+# Local-only datasets, exports, and model artifacts
+adult.csv
+adult.data
+adult.test
+data/raw/
+data/processed/
+*.joblib
+*.pkl
+*.pickle
+*.parquet
+*.xlsx
+*.xls
+exports/
+gemini_audit_results.csv
+FairHire_demo_resumes/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+# Local environments and Python cache
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+secrets.toml
+
+# Local datasets and intermediate model files
+adult.csv
+adult.data
+*.npy
+*.joblib
+*.pkl
+
+# Archives and private resume uploads
+*.zip
+resume_uploads/
+private/

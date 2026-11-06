@@ -1,0 +1,3 @@
+﻿AI_Model,Rows,Different_decisions,Nonzero_score_differences,Mean_absolute_score_difference,Mean_score_A,Mean_score_B
+GPT-6,48,0,0,0.0,68.41666666666667,68.41666666666667
+Gemini,48,0,0,0.0,69.16666666666667,69.16666666666667

@@ -1,0 +1,59 @@
+FAIRHIRE AUDIT LAB
+Exploratory Data Analysis and Demographic Disparity in AI-Assisted Resume Screening
+
+ABSTRACT
+This project investigates demographic sensitivity in AI-assisted candidate screening and demonstrates group-level disparity analysis through two distinct evidence streams. First, paired synthetic-resume tests recorded outputs from Gemini and ChatGPT across Rounds 2–5. The cleaned dataset contains 96 paired observations. Across those records, no within-pair decision flips or fit-score differences were observed. However, one model-level disagreement occurred for Profile P3 in Round 3: Gemini scored it 72 and shortlisted it, while ChatGPT scored it 55 and rejected it. Second, Logistic Regression and Random Forest classifiers were trained on the Adult Census Income dataset, using income above $50,000 as a proxy target. Despite excluding race and gender from model input features, the classifiers produced group-level selection-rate disparities. These are disparities in an income-prediction task, not hiring outcomes. The findings demonstrate why paired tests, proxy-label audits, careful dataset framing, and limits on causal claims are all necessary for evaluating AI systems.
+
+PROBLEM STATEMENT
+AI-assisted screening can scale candidate evaluation, but model outputs may vary by identity-associated signals or by system. The project evaluates whether two versions of otherwise identical synthetic profiles receive different scores or decisions when a demographic field or name changes, and demonstrates how group metrics can be computed on a labeled dataset.
+
+OBJECTIVES
+1. Conduct controlled paired tests varying names, race, gender, marital status, and country of origin across the recorded rounds.
+2. Compare score differences, decision changes, and consistency between Gemini and ChatGPT.
+3. Build a data-analysis dashboard that reports selection rates, true-positive rates, false-positive rates, and model performance.
+4. Demonstrate group disparities in the Adult Census income-prediction proxy while clearly separating them from hiring evidence.
+
+DATA AND METHODOLOGY
+A. Adult Census Income dataset
+The supplied file contained 48,842 rows and 15 columns. String fields were trimmed, question-mark missing markers were converted to missing values, and rows with missing values or exact duplicates were removed, leaving 45,175 rows. The outcome was income >50K. Two baseline models were trained with a stratified 80/20 split and random_state=42: Logistic Regression and Random Forest. Race and gender were excluded from predictor features and retained for post-hoc group auditing. Other variables may still be correlated with demographics; this design does not eliminate proxy effects.
+
+B. Paired synthetic-resume audit
+The validated file contains 96 pair observations from recorded Runs R2–R5: 48 Gemini and 48 ChatGPT/GPT-6 observations. Each row stores the pair ID, profile, changed attribute, A/B values, decisions, fit scores, rationales, run ID, and prompt condition. The score difference is Candidate A minus Candidate B. Decision flips and score differences are calculated from the recorded A/B outputs. Round 1 was not merged into this validated data because legacy Round 1 records in the prior workbook conflict with the recorded values in the conversation; retaining contradictory records would undermine the audit trail.
+
+RESULTS: ADULT CENSUS PROXY CLASSIFIERS
+The held-out test set contained 9,035 rows.
+
+Logistic Regression: accuracy 0.8447; balanced accuracy 0.7591; F1 0.6530; ROC-AUC 0.9039.
+Random Forest: accuracy 0.8618; balanced accuracy 0.7739; F1 0.6826; ROC-AUC 0.9169.
+
+Logistic Regression predicted positive rate by gender: Male 25.70% (N=6,069), Female 8.19% (N=2,966); gap 17.51 percentage points; lowest/highest rate ratio 0.319.
+Random Forest predicted positive rate by gender: Male 24.44% (N=6,069), Female 7.15% (N=2,966); gap 17.29 percentage points; ratio 0.293.
+
+Logistic Regression predicted positive rate by race: Asian-Pac-Islander 28.30% (N=265), White 21.14% (N=7,748), Amer-Indian-Eskimo 9.59% (N=73), Black 9.28% (N=873), Other 2.63% (N=76); maximum-minimum gap 25.67 percentage points; lowest/highest ratio 0.093.
+Random Forest predicted positive rate by race: Asian-Pac-Islander 26.79% (N=265), White 19.90% (N=7,748), Black 8.36% (N=873), Amer-Indian-Eskimo 8.22% (N=73), Other 3.95% (N=76); gap 22.85 percentage points; ratio 0.147.
+
+Ratios below 0.80 can be used as a screening flag for investigating potential adverse impact, but this common heuristic is not a legal conclusion and is not sufficient by itself to establish discrimination. Some race groups have small sample sizes, which makes rates less stable. Most importantly, these are model selection rates for predicting income >50K, not rates of being shortlisted for a job.
+
+RESULTS: PAIRED LLM TESTS
+Across the 96 validated paired observations (48 per model), 0 pairs had different A/B decisions and 0 pairs had nonzero A/B score differences. This means the test did not detect a within-pair effect under the tested prompts, profiles, attributes, and recorded runs; it does not prove that the models are unbiased in general.
+
+The models did differ in their score levels across some profiles. The largest disagreement was P3 in Round 3: Gemini scored 72 and returned SHORTLIST; ChatGPT scored 55 and returned REJECT, a 17-point score difference and conflicting decisions. This is between-model disagreement, not a demographic effect, because both models' A/B results within that pair remained identical.
+
+DISCUSSION
+The two evidence streams answer different questions. The paired LLM experiment tests whether changing an identity signal altered a score or decision for the same synthetic profile under a specific prompt. The Adult Census classifier analysis asks whether a learned income proxy yields different predicted-positive rates across demographic groups. Group differences in the second analysis do not prove that the models intentionally discriminated, and they cannot be treated as hiring outcomes. Conversely, zero differences in the limited paired LLM runs do not prove that demographic bias is absent in other profiles, prompts, occupations, or model versions.
+
+This project design is motivated by published audits that use randomized identities and much larger resume samples. An et al. (2025) evaluated approximately 361,000 resumes with randomized social identities and reported gender and race-associated score differences in the models and conditions they tested. “Computer says ‘no’” (2024) used 34,560 vacancy–CV combinations and reported ethnicity and gender effects in ChatGPT’s simulated assessments. Those studies are external evidence, not results reproduced by this project; their findings must not be copied into this experiment's results section.
+
+CONCLUSION
+The paired LLM tests in the validated R2–R5 record set showed no within-pair differences, while the two Adult Census proxy classifiers produced substantial group-level differences in predicted positive rates. The project therefore illustrates both the value and the limitations of bias auditing: findings depend on the target label, sample construction, prompt design, model, and measured metric. The defensible conclusion is that this test did not detect demographic sensitivity in its paired LLM outputs, while the separate income-proxy audit showed group-level disparities that merit careful interpretation. Neither stream alone establishes how a real hiring platform treats real applicants.
+
+REFERENCES
+1. An, J., Huang, D., Lin, C., & Tai, M. (2025). Measuring gender and racial biases in large language models: Intersectional evidence from automated resume evaluation. PNAS Nexus, 4(3), pgaf089. https://doi.org/10.1093/pnasnexus/pgaf089
+2. Computer says ‘no’: Exploring systemic bias in ChatGPT using an audit approach. (2024). Computers in Human Behavior: Artificial Humans, 2(1), 100054. https://doi.org/10.1016/j.chbah.2024.100054
+3. Wilson, K., & Caliskan, A. (2024). Gender, Race, and Intersectional Bias in Resume Screening via Language Model Retrieval. Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society. https://aihumanityclass.github.io/docs/wilson2024.pdf
+
+DEMO NOTE
+Run fairhire_final_app.py next to adult.csv and fairhire_llm_audit.csv. The app automatically trains the two proxy classifiers and reads the paired audit CSV. Navigate to “Final dashboard” to show headline findings, “Income-proxy model audit” to demonstrate group metrics, and “Paired LLM results” to show the actual paired-output analysis.
+
+## Prototype implementation: resume-input workflow
+The fifth interface module accepts resumes in PDF, DOCX, or TXT format, or pasted text, along with a target job description and must-have skills. With a user-supplied Gemini API key, its two-stage workflow first extracts structured evidence from the resume and then assesses that evidence against the stated role criteria. A counterfactual A/B mode evaluates the same resume text in two separate API calls with one identity-associated field changed, allowing the returned fit scores, decisions, rationales, and missing-skill evidence to be compared. When no API key is supplied, the batch module provides a transparent local keyword-coverage baseline; this fallback is not an LLM and should not be presented as an AI-bias result. All generated decisions are advisory and require human review.

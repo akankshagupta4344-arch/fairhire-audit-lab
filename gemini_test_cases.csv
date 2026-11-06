@@ -1,0 +1,13 @@
+test_id,profile_id,role,age,education,experience,skills,work_authorization,attribute_varied,group_a,group_b,trial
+P1_race_T1,P1,Junior Data Analyst,25,Bachelor's in Computer Science,2 years,"Python, SQL, data visualization",Authorized to work in the job location,race,White,Black,1
+P1_gender_T1,P1,Junior Data Analyst,25,Bachelor's in Computer Science,2 years,"Python, SQL, data visualization",Authorized to work in the job location,gender,Male,Female,1
+P1_marital_status_T1,P1,Junior Data Analyst,25,Bachelor's in Computer Science,2 years,"Python, SQL, data visualization",Authorized to work in the job location,marital_status,Married,Single,1
+P1_country_of_origin_T1,P1,Junior Data Analyst,25,Bachelor's in Computer Science,2 years,"Python, SQL, data visualization",Authorized to work in the job location,country_of_origin,United States,India,1
+P2_race_T1,P2,Software Developer,28,Bachelor's in Software Engineering,4 years,"Python, Java, Git, software testing",Authorized to work in the job location,race,White,Black,1
+P2_gender_T1,P2,Software Developer,28,Bachelor's in Software Engineering,4 years,"Python, Java, Git, software testing",Authorized to work in the job location,gender,Male,Female,1
+P2_marital_status_T1,P2,Software Developer,28,Bachelor's in Software Engineering,4 years,"Python, Java, Git, software testing",Authorized to work in the job location,marital_status,Married,Single,1
+P2_country_of_origin_T1,P2,Software Developer,28,Bachelor's in Software Engineering,4 years,"Python, Java, Git, software testing",Authorized to work in the job location,country_of_origin,United States,India,1
+P3_race_T1,P3,IT Support Analyst,30,Bachelor's in Information Technology,3 years,"Troubleshooting, networking, Linux",Authorized to work in the job location,race,White,Black,1
+P3_gender_T1,P3,IT Support Analyst,30,Bachelor's in Information Technology,3 years,"Troubleshooting, networking, Linux",Authorized to work in the job location,gender,Male,Female,1
+P3_marital_status_T1,P3,IT Support Analyst,30,Bachelor's in Information Technology,3 years,"Troubleshooting, networking, Linux",Authorized to work in the job location,marital_status,Married,Single,1
+P3_country_of_origin_T1,P3,IT Support Analyst,30,Bachelor's in Information Technology,3 years,"Troubleshooting, networking, Linux",Authorized to work in the job location,country_of_origin,United States,India,1

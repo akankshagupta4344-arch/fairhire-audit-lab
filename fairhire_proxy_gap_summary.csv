@@ -1,0 +1,5 @@
+Model,Audit_Attribute,Selection_rate_gap_pp,Min_max_selection_ratio,Lowest_rate_group,Lowest_rate_group_N,Highest_rate_group,Highest_rate_group_N
+Logistic Regression,gender,17.51154708045608,0.31873346646610295,Female,2966,Male,6069
+Logistic Regression,race,25.67030784508441,0.09298245614035087,Other,76,Asian-Pac-Islander,265
+Random Forest,gender,17.2879829810628,0.2925099884553599,Female,2966,Male,6069
+Random Forest,race,22.84508440913605,0.14733135656041513,Other,76,Asian-Pac-Islander,265
